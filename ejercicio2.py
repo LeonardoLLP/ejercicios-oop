@@ -14,8 +14,10 @@ class Aeropuerto():
         self.area = area
         self.airplanes = airplanes
 
-    def fly_to(self, airplane_index: int, aeropuerto):
-        flying = self.airplanes.pop(airplane_index)
+    def fly_to(self, tag: int, aeropuerto):
+        list_of_tags = [airplane.tag for airplane in self.airplanes]
+        index = list_of_tags.index(tag)
+        flying = self.airplanes.pop(index)
         aeropuerto.airplanes.append(flying)
 
 
