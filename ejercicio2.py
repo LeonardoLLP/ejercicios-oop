@@ -1,4 +1,5 @@
 from typing import List
+from random import randint
 
 # 1) Agregación. En caso de que el aeropuerto se destruya, los aviones siguen teniendo sentido solos.
 # Cardinalidad 1 ... n hacia Aeropuerto, 0 ... n hacia Avión
@@ -26,10 +27,58 @@ class Aeropuerto():
 
 
 class Pais():
-    def __init__(self, area, location: tuple):
+    def __init__(self, name, area):
+        self.name = name
         self.area = area
-        self.location = location
 
-class Aeropuerto():
-    pass
+    def __str__(self):
+        return self.name
+
+class Continente():
+    def __init__(self, countries: List[tuple]):
+        self.countries = [Pais(country[0], country[1]) for country in countries]
+
+
+# 3) Agregación. Si se disuelve la molécula, los átomos siguen existiendo.
+# Cardinalidad 0 ... 1 hacia Molecula, 2 ... n hacia Atomo
+
+class Atomo():
+    def __init__(self, z, mass):
+        self.z = z
+        self.mass = mass
+
+
+class Molecula():
+    """Objeto inmutable que consta de dos o más átomos.
+    """
+    def __init__(self, *atomos):
+        self._atomos = list(atomos)
+        if len(self._atomos) < 2:
+            raise ValueError("Molecules can't have less than two atoms")
+
+    def get_atoms(self):
+        return self._atomos
+
+
+
+# 4) Agregación. Si se destruye la colmena, las abejar se pueden mudar a otra.
+# Cardinalidad 1 hacia Colmena, 0 ... n hacia Abeja
+
+class Abeja():
+    def __init__(self, tag):
+        self.tag = tag
+
+class Colmena():
+    def __init__(self, abejas: List[Abeja]):
+        self.abejas = abejas
+
+    def count_bees(self):
+        return len(self.abejas)
+
+# 5) Agregación. Si desaparece una muñeca, las siguientes siguen funcionando.
+# Cardinalidad 0 ... 1 de muñeca a muñeca, ya que cada muñeca solamente encapsula a una o ninguna otra muñeca.
+
+class RussianDoll():
+    def __init__(self, smaller_doll):
+        self.smaller_doll = smaller_doll
 
