@@ -6,7 +6,7 @@ class Planet():
         self.diameter = diameter
         self.has_rings = has_rings
 
-saturn = Planet(5,683*(10**26), 58232*2, has_rings = True)
+saturn = Planet(5.683*(10**26), 58232*2, has_rings = True)
 
 
 # 2) SI: un directorio telefónico puede tener propiedades adicionales a la lista,
@@ -39,4 +39,33 @@ class DirectorioTelefonico(Lista):
         else:
             return("Name not found")
 
-            
+
+# 3) SI: un perro puede representarse como una subclase de animal de compañia: un perro específico sería una instancia de esta clase
+
+class AnimalCompania():
+    def __init__(self, year_born, mass):
+        self.year_born = year_born
+        self.mass = mass
+
+class Perro(AnimalCompania):
+    def __init__(self, year_born, mass, raza):
+        super.__init__(self, year_born, mass)  #TODO: Revisar porqué no funciona
+        self.raza = raza
+
+p = Perro(2, 3, "Chow chow")
+print(p.year_born)
+
+
+# 4) NO: Una bicicleta está compuesta por dos ruedas pero no tienen relación. Es uan agregación (o una composición si
+# consideramos que las ruedas van ligadas a la bicicleta)
+
+
+class Rueda():
+    def __init__(self, diameter):
+        self.diameter = diameter
+
+class Bicicleta():
+    def __init__(self, compound: str, r1: Rueda, r2: Rueda):
+        self.compound = compound
+        self.wheels = [r1, r2]
+
