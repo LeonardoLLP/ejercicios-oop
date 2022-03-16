@@ -49,7 +49,7 @@ class AnimalCompania():
 
 class Perro(AnimalCompania):
     def __init__(self, year_born, mass, raza):
-        super.__init__(self, year_born, mass)  #TODO: Revisar porqué no funciona
+        super().__init__(year_born, mass)  #TODO: Revisar porqué no funciona
         self.raza = raza
 
 p = Perro(2, 3, "Chow chow")

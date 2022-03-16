@@ -53,7 +53,7 @@ class Cuidador():
     def dejar_de_cuidar(self, animal: Animal):
         if animal in self.animales:
             self.animales.remove(animal)
-        else
+        else:
             print("Ese animal no está en mi lista")
 
     def alimentar(self, animal: Animal):
@@ -71,5 +71,51 @@ class Comida():
 
 
 class Stock():
-    def __init__(self):
-        pass
+    def __init__(self, *args):
+        """Pass in tuples of (Comida, int)
+
+        int represents nummber of items
+        """
+        self.food = {}
+        for item in args:
+            if item[0] in self.food.keys():
+                self.food[item[0]] = self.food[item[0]] + item[1]
+            else:
+                self.food[item[0]] = item[1]
+
+    def sacar_comida(self, comida: Comida, quantity: int):
+        if comida in self.food.keys():
+            if quantity <= self.food[comida]:
+                self.food[comida] = self.food[comida] - quantity
+            else:
+                print("No tenemos tanta comida")
+        else:
+            print("No tenemos esta comida")
+
+    def añadir_comida(self, comida: Comida, quantity: int):
+        if comida in self.food.keys():
+                self.food[comida] = self.food[comida] + quantity
+        else:
+            self.food[comida] = quantity
+
+
+class Zoo():
+    # Tiene sentido que aunque sea composición los "items" de zoo sean objetos independientes
+    def __init__(self, cuidadores: List[Cuidador], animales: List[Animal], stock: Stock):
+        self.cuidadores = animales
+        self.animales = cuidadores
+        self.stock = stock
+
+    def __del__(self):
+        for item in self.cuidadores:
+            del item
+        for item in self.animales:
+            del item
+        del self.stock
+
+    def cuidar(self, cuidador: Cuidador, animal: Animal):
+        if cuidador in self.cuidadores and animal in self.animales:
+            cuidador.cuidar(animal)
+
+    def coger_vacaciones(self, cuidador: Cuidador, inicio, duracion):
+        cuidador.vacaciones = Vacaciones(inicio, duracion, cuidador)
